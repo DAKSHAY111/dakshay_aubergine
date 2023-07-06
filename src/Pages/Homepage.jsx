@@ -28,21 +28,21 @@ const Homepage = () => {
 
   return (
     <>
-      {!isNull &&
-        users.map((user) => (
-          <Link to={`/${user.id}`}>
-            <div className="card">
-              <img src={user.avatar} alt={user.first_name} />
-              <div className="card-body">
-                <h2>
-                  {user.first_name} {user.last_name}
-                </h2>
-                <p>{user.email}</p>
-              </div>
-            </div>
-          </Link>
-        ))}
-    </>
+  {!isNull &&
+    users.map((user) => (
+      <Link to={`/${user.id}`} key={user.id} style={{textDecoration:"none"}}>
+        <div className="card">
+          <img className="user-avatar" src={user.avatar} alt={user.first_name} />
+          <div className="card-body">
+            <h2 className="user-name">
+              {user.first_name} {user.last_name}
+            </h2>
+            <p className="user-email">{user.email}</p>
+          </div>
+        </div>
+      </Link>
+    ))}
+</>
   );
 };
 
