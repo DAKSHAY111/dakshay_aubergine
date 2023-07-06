@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "../index.css";
 import html2canvas from 'html2canvas';
-import {saveAs} from  'file-saver';
-import { useRef } from "react";
 
 const About = () => {
   const [user, setUser] = useState({
@@ -15,19 +13,16 @@ const About = () => {
     avatar: "",
   });
 
-  const pageRef = useRef(null);
+  const handlePageDownload = () => {
+    const fileName = `${user.first_name}_${user.last_name}.jpeg`;
 
-    const handlePageDownload = () => {
-      const fileName = `${user.first_name} ${user.last_name}.jpeg`;
-
-      html2canvas(document.querySelector("#page")).then(canvas => {
-        canvas.toBlob(function(blob) {
-          saveAs(blob, fileName);
-        });
-      }
-      );
-
-    };
+    html2canvas(document.querySelector(`#userCard-${user.id}`)).then(canvas => {
+      const link = document.createElement('a');
+      link.download = fileName;
+      link.href = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
+      link.click();
+    });
+  };
 
 
   const [isNull, setIsNull] = useState(true);
@@ -50,7 +45,7 @@ const About = () => {
   return (
     <>
       {!isNull && (
-        <div className="card">
+        <div className="card" id={`userCard-${user.id}`}>
           <img src={user.avatar} alt={user.first_name}  className="user-avatar" />
           <div className="card-body">
             <h2 className="user-name">

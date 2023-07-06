@@ -35,3 +35,14 @@ code {
   font-size: 16px;
   color: #555555;
 }
+
+.btn{
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  margin: 20px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
