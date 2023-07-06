@@ -1,46 +1,53 @@
-import React, { useEffect } from 'react'
-import  { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import "../App.css";
 
 const About = () => {
-    const [user,setUser] = useState({
-        id: '',
-        email: '',
-        first_name: '',
-        last_name: '',  
-        avatar: ''
-      });
+  const [user, setUser] = useState({
+    id: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    avatar: "",
+  });
 
-    const [isNull,setIsNull] = useState(true);
+  const downloadDetailsAsImage = () => {};
 
-    const {id} = useParams();
+  const [isNull, setIsNull] = useState(true);
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const response = await fetch(`https://reqres.in/api/users/${id}`);
-            const data = await response.json();
-            console.log(data);
-            setUser(data.data);
-            setIsNull(false);
-            console.log(id);
-        }
-        getUsers();
-    }, [])
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await fetch(`https://reqres.in/api/users/${id}`);
+      const data = await response.json();
+      console.log(data);
+      setUser(data.data);
+      setIsNull(false);
+      console.log(id);
+    };
+    getUsers();
+  }, []);
 
   return (
     <>
-    {!isNull && (
+      {!isNull && (
         <div className="card">
-            <img src={user.avatar} alt={user.first_name} />
-            <div className="card-body">
-                <h2>{user.first_name} {user.last_name}</h2>
-                <p>{user.email}</p>
-            </div>
-            
+          <img src={user.avatar} alt={user.first_name} />
+          <div className="card-body">
+            <h2>
+              {user.first_name} {user.last_name}
+            </h2>
+            <p>{user.email}</p>
+          </div>
+          <button className="btn" onClick={downloadDetailsAsImage}>
+            Download{" "}
+          </button>
         </div>
-    )}
+      )}
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;
